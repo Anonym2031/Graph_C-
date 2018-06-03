@@ -1,0 +1,391 @@
+#include <iostream>
+#include <map>
+
+ using namespace std;
+
+ 
+ 
+void InPut (int inPut[2][100], int &n);
+
+ 
+void Print (int **x, int n);
+
+ 
+int InItems (int inPut[2][100], int n);
+
+ 
+int OutItems (int inPut[2][100], int n);
+
+ 
+int IntermediateItems (int inPut[2][100], int n);
+
+ 
+void Generic (int inPut[2][100], int n, int **matrix);
+
+ 
+void Multiply (int **a, int **b, int n);
+
+ 
+int LongStump (int **a, int **hasanelutyan, int n);
+
+ 
+bool CheckOfNull (int **a, int n);
+
+ 
+bool CheckOfCycle (int **a, int n);
+
+ 
+double Km (int inPut[2][100], int n, int t2);
+
+ 
+double Knk (int inPut[2][100], int n);
+
+ 
+ 
+ 
+ 
+int 
+main () 
+{
+  
+ 
+int inPut[2][100] 
+    = { 
+{1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 6, 7, 7, 8, 9, 10, 11, 12, 14, 15,
+
+16, 17, 18, 19, 20, 20}, 
+{3, 4, 5, 6, 5, 6, 7, 8, 13, 14, 15, 12, 13, 16, 11, 12, 10, 11,
+	      
+20, 9, 10, 9, 19, 18, 16, 18, 17, 0, 0, 0, 0, 0, 16, 0} 
+  };
+  
+ 
+int n = 34;
+  
+ 
+    //InPut(inPut, n);
+  int count = 0;
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+if (count < inPut[0][i])
+	
+ 
+count = inPut[0][i];
+      
+ 
+if (count < inPut[1][i])
+	
+ 
+count = inPut[1][i];
+    
+ 
+}
+  
+ 
+int **matrix;
+  
+ 
+matrix = new int *[n];
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+matrix[i] = new int[n];
+      
+ 
+for (int j = 0; j < n; ++j)
+	
+	{
+	  
+ 
+matrix[i][j] = 0;
+    
+ 
+} 
+} 
+int **hasanelutyan;
+  
+ 
+hasanelutyan = new int *[n];
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+hasanelutyan[i] = new int[n];
+      
+ 
+for (int j = 0; j < n; ++j)
+	
+	{
+	  
+ 
+hasanelutyan[i][j] = 0;
+    
+ 
+} 
+} 
+ 
+Generic (inPut, n, matrix);
+  
+ 
+Print (matrix, count);
+  
+ 
+int longStump = LongStump (matrix, hasanelutyan, count);
+  
+ 
+cout << "Hasaneliutyan matrix" << endl;
+  
+ 
+Print (hasanelutyan, count);
+  
+ 
+cout << "erkar qanakap : " << longStump << endl;
+  
+ 
+cout << "mutqi oxakner : " << InItems (inPut, n) << endl;
+  
+ 
+int t2 = IntermediateItems (inPut, n);
+  
+ 
+cout << "Mijankyal oxakner : " << t2 << endl;
+  
+ 
+cout << "elqi oxakner : " << OutItems (inPut, n) << endl;
+  
+ 
+cout << "Kn = " << Km (inPut, n, t2) << endl;
+  
+ 
+cout << "Knk = " << Knk (inPut, n) << endl;
+  
+ 
+ 
+delete[]matrix;
+  
+ 
+matrix = NULL;
+  
+ 
+system ("pause");
+  
+ 
+return 0;
+
+ 
+}
+
+
+ 
+ 
+ 
+ 
+double 
+Km (int inPut[2][100], int n, int t4) 
+{
+  
+ 
+map < int, int >myMap;
+  
+ 
+for (int i = 0; i < 2; ++i)
+    
+    {
+      
+ 
+for (int j = 0; j < n; ++j)
+	
+	{
+	  
+ 
+myMap[inPut[i][j]] = inPut[i][j];
+    
+ 
+} 
+} 
+int m = 0;
+  
+ 
+for (auto p = myMap.begin (); p != myMap.end (); ++p)
+    
+    {
+      
+ 
+if (p->first != 0)
+	
+ 
+++m;
+    
+ 
+}
+  
+ 
+cout << "t4 = " << t4 << " m = " << m << endl;
+  
+ 
+return t4 * 1.0 / m;
+
+ 
+}
+
+
+ 
+ 
+ 
+ 
+double 
+Knk (int inPut[2][100], int n) 
+{
+  
+ 
+map < int, int >myMap;
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+myMap[inPut[0][i]] = 1;
+  
+ 
+} 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+myMap[inPut[1][i]]++;
+  
+ 
+} 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+if (inPut[1][i] == 0)
+	
+ 
+myMap[inPut[0][i]] = 0;
+    
+ 
+}
+  
+ 
+int t4 = 0;
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+if ((myMap[inPut[0][i]] > 1) && (myMap[inPut[1][i]] > 1))
+	
+	{
+	  
+ 
+++t4;
+	
+ 
+}
+    
+ 
+}
+  
+ 
+int m = 0;
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+if (inPut[1][i] != 0)
+	
+ 
+++m;
+    
+ 
+}
+  
+ 
+cout << "t2 = " << t4 << " r = " << m << endl;
+  
+ 
+return t4 * 1.0 / m;
+
+ 
+}
+
+
+ 
+ 
+ 
+ 
+void 
+InPut (int inPut[2][100], int &n) 
+{
+  
+ 
+cout << "n = ";
+  
+ 
+cin >> n;
+  
+ 
+for (int i = 0; i < n; ++i)
+    
+    {
+      
+ 
+cout << i + 1 << ")i , j ";
+      
+ 
+cin >> inPut[0][i] >> inPut[1][i];
+
+ 
+} 
+} 
+ 
+ 
+void 
+
+
+Print (int **const x, int n) 
+{
+  
+ 
+for (int i = 1; i <= n; ++i)
+    
+    {
+      
+ 
+for (int j = 1; j <= n; ++j)
+	
+	{
+	  
+ 
+cout << x[i][j] << ' ';
+	
+ 
+} 
+cout << endl;
+    
+ 
+} 
+cout << "_______________________________" << endl;
