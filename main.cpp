@@ -1,9 +1,6 @@
-#include "stdafx.h"
 #include <iostream>
 #include <map>
-
 using namespace std;
-
 void InPut(int inPut[2][100], int& n);
 void Print(int** x, int n);
 int InItems(int inPut[2][100], int n);
@@ -16,9 +13,6 @@ bool CheckOfNull(int** a, int n);
 bool CheckOfCycle(int** a, int n);
 double Km(int inPut[2][100], int n, int t2);
 double Knk(int inPut[2][100], int n);
-
-
-
 int main()
 {
 	int inPut[2][100]
@@ -51,7 +45,6 @@ int main()
 			hasanelutyan[i][j] = 0;
 		}
 	}
-
 	Generic(inPut, n, matrix);
 	Print(matrix, count);
 	int longStump = LongStump(matrix, hasanelutyan, count);
@@ -64,14 +57,11 @@ int main()
 	cout << "elqi oxakner : " << OutItems(inPut, n) << endl;
 	cout << "Kn = " << Km(inPut, n, t2) << endl;
 	cout << "Knk = " << Knk(inPut, n) << endl;
-
 	delete[] matrix;
 	matrix = NULL;
 	system("pause");
 	return 0;
 }
-
-
 double Km(int inPut[2][100], int n, int t4) {
 	map<int, int> myMap;
 	for (int i = 0; i < 2; ++i) {
@@ -87,8 +77,6 @@ double Km(int inPut[2][100], int n, int t4) {
 	cout << "t4 = " << t4 << " m = " << m << endl;
 	return t4 * 1.0 / m;
 }
-
-
 double Knk(int inPut[2][100], int n) {
 	map<int, int> myMap;
 	for (int i = 0; i < n; ++i) {
@@ -115,8 +103,6 @@ double Knk(int inPut[2][100], int n) {
 	cout << "t2 = " << t4 << " r = " << m << endl;
 	return t4 * 1.0 / m;
 }
-
-
 void InPut(int inPut[2][100], int& n)
 {
 	cout << "n = ";
@@ -126,8 +112,6 @@ void InPut(int inPut[2][100], int& n)
 		cin >> inPut[0][i] >> inPut[1][i];
 	}
 }
-
-
 void Print(int** const x, int n)
 {
 	for (int i = 1; i <= n; ++i) {
@@ -136,9 +120,7 @@ void Print(int** const x, int n)
 		}
 		cout << endl;
 	}
-	cout << "_______________________________" << endl;
 }
-
 //հաշվում է մուտքային օղակները
 int InItems(int inPut[2][100], int n)
 {
@@ -160,7 +142,6 @@ int InItems(int inPut[2][100], int n)
 	}
 	return exit;
 }
-
 //ելքային օղակների քանակ
 int OutItems(int inPut[2][100], int n)
 {
@@ -172,8 +153,6 @@ int OutItems(int inPut[2][100], int n)
 	}
 	return exit;
 }
-
-
 int IntermediateItems(int inPut[2][100], int n)
 {
 	int exit = 0;
@@ -195,14 +174,12 @@ int IntermediateItems(int inPut[2][100], int n)
 	}
 	return exit;
 }
-
 void Generic(int inPut[2][100], int n, int** matrix)
 {
 	for (int i = 0; i < n; ++i) {
 		matrix[inPut[0][i]][inPut[1][i]] = 1;
 	}
 }
-
 void Multiply(int** a, int** const b, const int n)
 {
 	int** exit = new int*[n];
@@ -228,14 +205,12 @@ void Multiply(int** a, int** const b, const int n)
 	delete[] exit;
 	exit = NULL;
 }
-
 void Add(int** a, int** const b, const int n) {
 	for (int i = 0; i < n; ++i)
 		for (int j = 0; j < n; ++j)
 			a[i][j] += b[i][j];
 
 }
-
 int LongStump(int ** a, int** hasanelutyan, int n)
 {
 	int exit = 0;
@@ -259,13 +234,12 @@ int LongStump(int ** a, int** hasanelutyan, int n)
 		Multiply(a, A, n);
 		Print(a, n);
 		Add(hasanelutyan, a, n);
-		cout << " ______________________________ " << endl;
+		cout << " " << endl;
 	}
 	delete[] A;
 	A = NULL;
 	return exit;
 }
-
 bool CheckOfNull(int ** a, int n)
 {
 	for (int i = 0; i < n; ++i) {
@@ -277,7 +251,6 @@ bool CheckOfNull(int ** a, int n)
 	}
 	return true;
 }
-
 bool CheckOfCycle(int ** a, int n)
 {
 	for (int i = 0; i < n; ++i) {
